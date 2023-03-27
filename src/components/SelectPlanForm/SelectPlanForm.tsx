@@ -17,15 +17,18 @@ import AppContext from "../../context/AppContext";
 
 export default function SelectPlanForm() {
   const [_, setStep] = useContext(StepContext).stepState;
-  const [{ paymentMethod }] = useContext(AppContext).planState;
-  const [yearMod, setYearMod] = useState(paymentMethod === "yr");
+  const [planObj, setPlan] = useContext(AppContext).planState;
+  const yearMod = planObj.paymentMethod === "yr";
   const options = [
     { title: "Arcade", price: "9" },
     { title: "Advanced", price: "12" },
     { title: "Pro", price: "15" },
   ];
 
-  const setMod = () => (yearMod ? setYearMod(false) : setYearMod(true));
+  const setMod = () =>
+    yearMod
+      ? setPlan({ ...planObj, paymentMethod: "mo" })
+      : setPlan({ ...planObj, paymentMethod: "yr" });
   const navigate = useNavigate();
   const margin = yearMod ? "7.7rem" : "9.4rem";
 
