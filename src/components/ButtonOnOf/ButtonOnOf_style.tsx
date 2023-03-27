@@ -5,6 +5,7 @@ interface ButtonOnOfInterface {
 }
 
 export const ButtonOnOfStyle = styled.button<ButtonOnOfInterface>`
+  border: none;
   width: 50px;
   height: 25px;
   border: solid 1px black;
