@@ -11,6 +11,7 @@ import { useState } from "react";
 import type { IPlan, IUserInfo, Steps } from "./context/types";
 import AddOns from "./pages/AddOns/AddOns";
 import Summary from "./pages/Summary/Summary";
+import End from "./pages/End/End";
 
 export default function AppRoutes() {
   const userState = useState<IUserInfo>({
@@ -40,6 +41,7 @@ export default function AppRoutes() {
                 <Route path="/plan" element={<SelectPlan />} />
                 <Route path="/add-ons" element={<AddOns />}></Route>
                 <Route path="/summary" element={<Summary />}></Route>
+                <Route path="/end" element={<End />}></Route>
               </Routes>
             </Div>
           </ThemeProvider>

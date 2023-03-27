@@ -121,6 +121,7 @@ export default function SummaryForm() {
         color="#fff"
         onClick={() => {
           console.log(plan, paymentMethod, addOns, user);
+          navigate("/end");
         }}
       >
         Confirm
