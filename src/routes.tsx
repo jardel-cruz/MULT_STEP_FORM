@@ -9,6 +9,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useState } from "react";
 
 import type { IPlan, IUserInfo, Steps } from "./context/types";
+import AddOns from "./pages/AddOns/AddOns";
+import Summary from "./pages/Summary/Summary";
 
 export default function AppRoutes() {
   const userState = useState<IUserInfo>({
@@ -17,7 +19,15 @@ export default function AppRoutes() {
     tel: "",
   });
   const stepState = useState<Steps>(1);
-  const planState = useState<IPlan>({ plan: "Arcade", paymentMethod: "mo" });
+  const planState = useState<IPlan>({
+    plan: "Arcade",
+    paymentMethod: "mo",
+    addOns: {
+      CustomizableProfile: false,
+      LargerStorage: false,
+      OnlineService: false,
+    },
+  });
 
   return (
     <StepContext.Provider value={{ stepState }}>
@@ -28,6 +38,8 @@ export default function AppRoutes() {
               <Routes>
                 <Route path="/" element={<PersonalInfo />} />
                 <Route path="/plan" element={<SelectPlan />} />
+                <Route path="/add-ons" element={<AddOns />}></Route>
+                <Route path="/summary" element={<Summary />}></Route>
               </Routes>
             </Div>
           </ThemeProvider>

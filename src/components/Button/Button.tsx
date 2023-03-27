@@ -23,6 +23,7 @@ const Button = styled.button<ButtonInterface>`
   &:hover {
     background-color: ${(props) =>
       props.houverColor ? props.houverColor : "#fff"};
+    color: ${(props) => (props.color === "grey" ? "black" : "")};
   }
 `;
 

@@ -27,7 +27,13 @@ export default function PlanOption({ price, title, yearMod }: PlanOptionProps) {
       icon={title}
       selected={planObj.plan === title}
       yearMod={yearMod}
-      onClick={() => setPlan({ plan: title, paymentMethod } as IPlan)}
+      onClick={() =>
+        setPlan({
+          plan: title,
+          paymentMethod,
+          addOns: { ...planObj.addOns },
+        } as IPlan)
+      }
     >
       <p className="monthFree">2 months free</p>
       <Text>{`$${price}${yearMod ? "0" : ""}/${yearMod ? "yr" : "mo"}`}</Text>

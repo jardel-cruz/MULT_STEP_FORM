@@ -13,10 +13,12 @@ import ButtonOnOf from "../ButtonOnOf/ButtonOnOf";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import themes from "../../assets/styles/themes";
+import AppContext from "../../context/AppContext";
 
 export default function SelectPlanForm() {
   const [_, setStep] = useContext(StepContext).stepState;
-  const [yearMod, setYearMod] = useState(false);
+  const [{ paymentMethod }] = useContext(AppContext).planState;
+  const [yearMod, setYearMod] = useState(paymentMethod === "yr");
   const options = [
     { title: "Arcade", price: "9" },
     { title: "Advanced", price: "12" },
@@ -48,7 +50,7 @@ export default function SelectPlanForm() {
       <Button
         marginTop={margin}
         floatPosition="left"
-        color="#000"
+        color="grey"
         onClick={() => navigate(-1)}
       >
         Back
@@ -59,7 +61,7 @@ export default function SelectPlanForm() {
         backgroundColor={themes.colors.button}
         houverColor={themes.colors.buttonHover1}
         color="#fff"
-        onClick={() => navigate("/plan")}
+        onClick={() => navigate("/add-ons")}
       >
         Next Step
       </Button>
