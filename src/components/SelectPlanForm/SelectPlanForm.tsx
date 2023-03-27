@@ -10,9 +10,12 @@ import {
 } from "./SelectPlanForm_style";
 import { useContext, useEffect, useState } from "react";
 import ButtonOnOf from "../ButtonOnOf/ButtonOnOf";
+import Button from "../Button/Button";
+import { useNavigate } from "react-router-dom";
+import themes from "../../assets/styles/themes";
 
 export default function SelectPlanForm() {
-  const [step, setStep] = useContext(StepContext).stepState;
+  const [_, setStep] = useContext(StepContext).stepState;
   const [yearMod, setYearMod] = useState(false);
   const options = [
     { title: "Arcade", price: "9" },
@@ -21,6 +24,8 @@ export default function SelectPlanForm() {
   ];
 
   const setMod = () => (yearMod ? setYearMod(false) : setYearMod(true));
+  const navigate = useNavigate();
+  const margin = yearMod ? "7.7rem" : "9.4rem";
 
   useEffect(() => setStep(2));
 
@@ -39,6 +44,25 @@ export default function SelectPlanForm() {
         <ButtonOnOf onClick={setMod} state={yearMod}></ButtonOnOf>
         <TextPaymentMethod active={yearMod}>Yearly</TextPaymentMethod>
       </SelectPaymentMethodContainer>
+
+      <Button
+        marginTop={margin}
+        floatPosition="left"
+        color="#000"
+        onClick={() => navigate(-1)}
+      >
+        Back
+      </Button>
+      <Button
+        marginTop={margin}
+        floatPosition="right"
+        backgroundColor={themes.colors.button}
+        houverColor={themes.colors.buttonHover1}
+        color="#fff"
+        onClick={() => navigate("/plan")}
+      >
+        Next Step
+      </Button>
     </Form>
   );
 }

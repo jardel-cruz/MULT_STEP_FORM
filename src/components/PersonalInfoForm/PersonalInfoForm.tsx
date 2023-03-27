@@ -18,7 +18,7 @@ import StepContext from "../../context/StepContext";
 
 export default function PersonalInfoForm() {
   const { userState } = useContext(AppContext);
-  const [step, setStep] = useContext(StepContext).stepState;
+  const [_, setStep] = useContext(StepContext).stepState;
   const [userInfos] = userState;
   const [validInputs, setValid] = useState({ email: true, tel: true });
   const navigate = useNavigate();
@@ -92,6 +92,7 @@ export default function PersonalInfoForm() {
         />
       </Fieldset>
       <Button
+        marginTop="7rem"
         floatPosition="right"
         backgroundColor={themes.colors.button}
         houverColor={themes.colors.buttonHover1}

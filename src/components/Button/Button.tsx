@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 interface ButtonInterface {
+  marginTop: string;
   floatPosition?: "left" | "right";
   backgroundColor?: string;
   houverColor?: string;
@@ -10,7 +11,7 @@ interface ButtonInterface {
 const Button = styled.button<ButtonInterface>`
   color: ${(props) => (props.color ? props.color : "#fff")};
   float: ${(props) => (props.floatPosition ? props.floatPosition : "left")};
-  margin-top: 20%;
+  margin-top: ${(props) => props.marginTop};
   padding: 0.7rem 0.8rem;
   border: none;
   border-radius: 5px;
