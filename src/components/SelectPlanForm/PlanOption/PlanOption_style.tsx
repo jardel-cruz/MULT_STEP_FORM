@@ -21,7 +21,8 @@ function findIcon(icon: string) {
 }
 
 export const PlanCard = styled.button<PlanCardInterface>`
-  border: solid 1px gray;
+  border: solid 1px
+    ${(props) => (props.selected ? props.theme.colors.border : "gray")};
   cursor: pointer;
   border-radius: 5px;
   background-color: ${(props) =>
