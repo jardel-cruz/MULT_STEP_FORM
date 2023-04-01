@@ -8,39 +8,42 @@ import {
   SelectPaymentMethodContainer,
   TextPaymentMethod,
 } from "./SelectPlanForm_style";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ButtonOnOf from "../ButtonOnOf/ButtonOnOf";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import themes from "../../assets/styles/themes";
 import AppContext from "../../context/AppContext";
 
+import plans from "../../data/plans.json";
+
 export default function SelectPlanForm() {
   const [_, setStep] = useContext(StepContext).stepState;
-  const [planObj, setPlan] = useContext(AppContext).planState;
-  const yearMod = planObj.paymentMethod === "yr";
-  const options = [
-    { title: "Arcade", price: "9" },
-    { title: "Advanced", price: "12" },
-    { title: "Pro", price: "15" },
-  ];
+  const [planState, dispatch] = useContext(AppContext).planState;
+  const yearMod = planState.paymentMethod === "yr";
 
-  const setMod = () =>
-    yearMod
-      ? setPlan({ ...planObj, paymentMethod: "mo" })
-      : setPlan({ ...planObj, paymentMethod: "yr" });
+  const setMod = () => dispatch({ type: "SetPaymentMethod" });
   const navigate = useNavigate();
   const margin = yearMod ? "7.7rem" : "9.4rem";
 
-  useEffect(() => setStep(2));
+  useEffect(() => {
+    if (yearMod && planState.paymentMethod !== "yr") setMod();
+    setStep(2);
+  });
+  useEffect(() => {});
 
   return (
     <Form>
       <Title>Select your plan</Title>
       <Text>You have option monthly or yearly billing</Text>
       <CardsContainer>
-        {options.map((option, index) => (
-          <PlanOption {...option} key={index} yearMod={yearMod} />
+        {plans.map(({ name, price }, index) => (
+          <PlanOption
+            title={name}
+            price={price[planState.paymentMethod as "mo" | "yr"]}
+            key={index}
+            yearMod={yearMod}
+          />
         ))}
       </CardsContainer>
 

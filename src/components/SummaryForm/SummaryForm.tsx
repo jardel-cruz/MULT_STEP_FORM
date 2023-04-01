@@ -11,29 +11,36 @@ import {
   ContainerAddOns,
   ContainerTitle,
   SummaryContainer,
-  SummaryText,
   SummaryTitle,
   TotalContainer,
 } from "./SummaryForm_style";
 
+import plans from "../../data/plans.json";
+
 export default function SummaryForm() {
+  const navigate = useNavigate();
   const [_, setStep] = useContext(StepContext).stepState;
   const [{ plan, paymentMethod, addOns }] = useContext(AppContext).planState;
   const [user] = useContext(AppContext).userState;
-  const navigate = useNavigate();
-
   const paymentMethodYr = paymentMethod === "yr";
-  const prices = {
-    Arcade: 9,
-    Advanced: 12,
-    Pro: 15,
-  };
+  const price = plans.find((item) => item.name === plan)?.price[
+    paymentMethod as "mo" | "yr"
+  ]!;
+
   const listAddOns = [
-    { name: "Online server", price: 1, select: addOns.OnlineService },
-    { name: "Larger storage", price: 2, select: addOns.LargerStorage },
+    {
+      name: "Online server",
+      price: { mo: 1, yr: 10 },
+      select: addOns.OnlineService,
+    },
+    {
+      name: "Larger storage",
+      price: { mo: 2, yr: 20 },
+      select: addOns.LargerStorage,
+    },
     {
       name: "Customizable profile",
-      price: 2,
+      price: { mo: 2, yr: 20 },
       select: addOns.CustomizableProfile,
     },
   ];
@@ -41,14 +48,14 @@ export default function SummaryForm() {
   const total = () => {
     const addOnsPrice = listAddOns.reduce((acc, { price, select }) => {
       if (select) {
-        return acc + price;
+        return acc + price[paymentMethod as "mo" | "yr"];
       }
 
       return acc;
     }, 0);
-    const result = prices[plan] + addOnsPrice;
+    const result = price + addOnsPrice;
 
-    return paymentMethodYr ? result * 10 : result;
+    return result;
   };
 
   useEffect(() => setStep(4));
@@ -80,9 +87,7 @@ export default function SummaryForm() {
             })`}</SummaryTitle>
             <Link to={"/plan"}>Change</Link>
           </div>
-          <p>{`$${prices[plan]}${
-            paymentMethodYr ? "0" : ""
-          }/${paymentMethod}`}</p>
+          <p>{`$${price}/${paymentMethod}`}</p>
         </ContainerTitle>
         <ContainerAddOns>
           <>
@@ -91,8 +96,8 @@ export default function SummaryForm() {
                 return (
                   <div key={index}>
                     <p>{name}</p>
-                    <span>{`+$${price}${
-                      paymentMethodYr ? "0" : ""
+                    <span>{`+$${
+                      price[paymentMethod as "mo" | "yr"]
                     }/${paymentMethod}`}</span>
                   </div>
                 );

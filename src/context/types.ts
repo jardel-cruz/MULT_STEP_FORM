@@ -14,4 +14,13 @@ export interface IPlan {
   paymentMethod: string;
 }
 
+export type Action =
+  | { type: "SetPlanArcade" }
+  | { type: "SetPlanAdvanced" }
+  | { type: "SetPlanPro" }
+  | { type: "SetPaymentMethod" }
+  | { type: "SetCustomizableProfile" }
+  | { type: "SetLargerStorage" }
+  | { type: "SetOnlineService" };
+
 export type Steps = number;

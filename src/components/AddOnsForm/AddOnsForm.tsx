@@ -9,32 +9,13 @@ import Button from "../Button/Button";
 import themes from "../../assets/styles/themes";
 import { useNavigate } from "react-router-dom";
 
+import addOns from "../../data/addons.json";
+
 type AddOnsIndex = "OnlineService" | "LargerStorage" | "CustomizableProfile";
 
 export default function AddOnsForm() {
-  const options = [
-    {
-      name: "OnlineService",
-      title: "Online service",
-      description: "Access to multiplayer game",
-      price: 1,
-    },
-    {
-      name: "LargerStorage",
-      title: "Larger storage",
-      description: "Extra 1TB cloud save",
-      price: 2,
-    },
-    {
-      name: "CustomizableProfile",
-      title: "Customizable profile",
-      description: "Custom theme on your profile",
-      price: 2,
-    },
-  ];
-
   const [_, setStep] = useContext(StepContext).stepState;
-  const [planObj, setPlan] = useContext(AppContext).planState;
+  const [planState, dispatch] = useContext(AppContext).planState;
 
   const navigate = useNavigate();
   const margin = "5.2rem";
@@ -47,22 +28,16 @@ export default function AddOnsForm() {
       <Text>Add-ons help enhance your gaming experience</Text>
 
       <>
-        {options.map(({ description, price, title, name }, index) => (
+        {addOns.map(({ description, price, title, name }, index) => (
           <AddOnOption
-            active={planObj.addOns[name as AddOnsIndex]}
-            yearMod={planObj.paymentMethod === "yr"}
-            price={price}
+            active={planState.addOns[name as AddOnsIndex]}
+            yearMod={planState.paymentMethod === "yr"}
+            price={price[planState.paymentMethod as "mo" | "yr"]}
             title={title}
             text={description}
             key={index}
             onClick={() => {
-              setPlan({
-                ...planObj,
-                addOns: {
-                  ...planObj.addOns,
-                  [name]: planObj.addOns[name as AddOnsIndex] ? false : true,
-                },
-              });
+              dispatch({ type: `Set${name as AddOnsIndex}` });
             }}
           ></AddOnOption>
         ))}

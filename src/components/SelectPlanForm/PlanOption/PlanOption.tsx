@@ -8,35 +8,24 @@ import type { IPlan } from "../../../context/types";
 
 interface PlanOptionProps {
   title: string;
-  price: string;
+  price: number;
   yearMod: boolean;
 }
 
 export default function PlanOption({ price, title, yearMod }: PlanOptionProps) {
-  const [planObj, setPlan] = useContext(AppContext).planState;
-
-  const paymentMethod = yearMod ? "yr" : "mo";
-
-  useEffect(() => {
-    if (yearMod && planObj.paymentMethod !== "yr")
-      setPlan({ ...planObj, paymentMethod });
-  });
+  const [planState, dispatch] = useContext(AppContext).planState;
 
   return (
     <PlanCard
       icon={title}
-      selected={planObj.plan === title}
+      selected={planState.plan === title}
       yearMod={yearMod}
       onClick={() =>
-        setPlan({
-          plan: title,
-          paymentMethod,
-          addOns: { ...planObj.addOns },
-        } as IPlan)
+        dispatch({ type: `SetPlan${title as "Arcade" | "Advanced" | "Pro"}` })
       }
     >
       <p className="monthFree">2 months free</p>
-      <Text>{`$${price}${yearMod ? "0" : ""}/${yearMod ? "yr" : "mo"}`}</Text>
+      <Text>{`$${price}/${yearMod ? "yr" : "mo"}`}</Text>
       <Title>{title}</Title>
       <span></span>
     </PlanCard>

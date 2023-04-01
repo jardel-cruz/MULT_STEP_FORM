@@ -30,7 +30,7 @@ export default function AddOnOption({
         <Title>{title}</Title>
         <Text>{text}</Text>
       </OptionDescriptionContainer>
-      {`+$${price}${yearMod ? "0" : ""}/${yearMod ? "yr" : "mo"}`}
+      {`+$${price}/${yearMod ? "yr" : "mo"}`}
     </AddOnOptionStyle>
   );
 }
