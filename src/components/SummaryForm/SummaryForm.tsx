@@ -60,77 +60,60 @@ export default function SummaryForm() {
 
   useEffect(() => setStep(4));
 
-  const margin = (() => {
-    const countAddOns = listAddOns.filter((item) => item.select).length as
-      | 0
-      | 1
-      | 2
-      | 3;
-    const marginValues = {
-      0: "13.6rem",
-      1: "10.45rem",
-      2: "8.5rem",
-      3: "6.15rem",
-    };
-    return marginValues[countAddOns];
-  })();
-
   return (
     <Form>
-      <Title>Finishing up</Title>
-      <Text>Double-check everything looks OK before confirming.</Text>
-      <SummaryContainer>
-        <ContainerTitle>
-          <div>
-            <SummaryTitle>{`${plan}(${
-              paymentMethodYr ? "Yearly" : "Monthly"
-            })`}</SummaryTitle>
-            <Link to={"/plan"}>Change</Link>
-          </div>
-          <p>{`$${price}/${paymentMethod}`}</p>
-        </ContainerTitle>
-        <ContainerAddOns>
-          <>
-            {listAddOns.map(({ name, price, select }, index) => {
-              if (select) {
-                return (
-                  <div key={index}>
-                    <p>{name}</p>
-                    <span>{`+$${
-                      price[paymentMethod as "mo" | "yr"]
-                    }/${paymentMethod}`}</span>
-                  </div>
-                );
-              }
-            })}
-          </>
-        </ContainerAddOns>
-      </SummaryContainer>
-      <TotalContainer>
-        <p>{`Total (per ${paymentMethodYr ? "year" : "month"})`}</p>
-        <span>{`$${total()}/${paymentMethod}`}</span>
-      </TotalContainer>
-      <Button
-        marginTop={margin}
-        floatPosition="left"
-        color="grey"
-        onClick={() => navigate(-1)}
-      >
-        Back
-      </Button>
-      <Button
-        marginTop={margin}
-        floatPosition="right"
-        backgroundColor={themes.colors.border}
-        houverColor={themes.colors.buttonHover2}
-        color="#fff"
-        onClick={() => {
-          console.log(plan, paymentMethod, addOns, user);
-          navigate("/end");
-        }}
-      >
-        Confirm
-      </Button>
+      <div>
+        <Title>Finishing up</Title>
+        <Text>Double-check everything looks OK before confirming.</Text>
+        <SummaryContainer>
+          <ContainerTitle>
+            <div>
+              <SummaryTitle>{`${plan}(${
+                paymentMethodYr ? "Yearly" : "Monthly"
+              })`}</SummaryTitle>
+              <Link to={"/plan"}>Change</Link>
+            </div>
+            <p>{`$${price}/${paymentMethod}`}</p>
+          </ContainerTitle>
+          <ContainerAddOns>
+            <>
+              {listAddOns.map(({ name, price, select }, index) => {
+                if (select) {
+                  return (
+                    <div key={index}>
+                      <p>{name}</p>
+                      <span>{`+$${
+                        price[paymentMethod as "mo" | "yr"]
+                      }/${paymentMethod}`}</span>
+                    </div>
+                  );
+                }
+              })}
+            </>
+          </ContainerAddOns>
+        </SummaryContainer>
+        <TotalContainer>
+          <p>{`Total (per ${paymentMethodYr ? "year" : "month"})`}</p>
+          <span>{`$${total()}/${paymentMethod}`}</span>
+        </TotalContainer>
+      </div>
+      <div>
+        <Button floatPosition="left" color="grey" onClick={() => navigate(-1)}>
+          Back
+        </Button>
+        <Button
+          floatPosition="right"
+          backgroundColor={themes.colors.border}
+          houverColor={themes.colors.buttonHover2}
+          color="#fff"
+          onClick={() => {
+            console.log(plan, paymentMethod, addOns, user);
+            navigate("/end");
+          }}
+        >
+          Confirm
+        </Button>
+      </div>
     </Form>
   );
 }

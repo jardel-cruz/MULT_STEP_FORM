@@ -43,9 +43,9 @@ export default function PersonalInfoForm() {
 
   return (
     <Form>
-      <Title>Personal info</Title>
-      <Text>Please provide your name, email address, and phone number.</Text>
       <Fieldset>
+        <Title>Personal info</Title>
+        <Text>Please provide your name, email address, and phone number.</Text>
         <ContainerLabel>
           <Label htmlFor="name">Name</Label>
         </ContainerLabel>
@@ -91,20 +91,21 @@ export default function PersonalInfoForm() {
           required
         />
       </Fieldset>
-      <Button
-        marginTop="7rem"
-        floatPosition="right"
-        backgroundColor={themes.colors.button}
-        houverColor={themes.colors.buttonHover1}
-        color={"#fff"}
-        onClick={() => {
-          if (validInputs.email && validInputs.tel && inputsEmpty) {
-            navigate("/plan");
-          }
-        }}
-      >
-        Next Step
-      </Button>
+      <div>
+        <Button
+          floatPosition="right"
+          backgroundColor={themes.colors.button}
+          houverColor={themes.colors.buttonHover1}
+          color={"#fff"}
+          onClick={() => {
+            if (validInputs.email && validInputs.tel && inputsEmpty) {
+              navigate("/plan");
+            }
+          }}
+        >
+          Next Step
+        </Button>
+      </div>
     </Form>
   );
 }

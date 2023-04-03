@@ -24,7 +24,6 @@ export default function SelectPlanForm() {
 
   const setMod = () => dispatch({ type: "SetPaymentMethod" });
   const navigate = useNavigate();
-  const margin = yearMod ? "7.7rem" : "9.4rem";
 
   useEffect(() => {
     if (yearMod && planState.paymentMethod !== "yr") setMod();
@@ -34,43 +33,41 @@ export default function SelectPlanForm() {
 
   return (
     <Form>
-      <Title>Select your plan</Title>
-      <Text>You have option monthly or yearly billing</Text>
-      <CardsContainer>
-        {plans.map(({ name, price }, index) => (
-          <PlanOption
-            title={name}
-            price={price[planState.paymentMethod as "mo" | "yr"]}
-            key={index}
-            yearMod={yearMod}
-          />
-        ))}
-      </CardsContainer>
+      <div>
+        <Title>Select your plan</Title>
+        <Text>You have option monthly or yearly billing</Text>
+        <CardsContainer>
+          {plans.map(({ name, price }, index) => (
+            <PlanOption
+              title={name}
+              price={price[planState.paymentMethod as "mo" | "yr"]}
+              key={index}
+              yearMod={yearMod}
+            />
+          ))}
+        </CardsContainer>
 
-      <SelectPaymentMethodContainer>
-        <TextPaymentMethod active={!yearMod}>Monthly</TextPaymentMethod>
-        <ButtonOnOf onClick={setMod} state={yearMod}></ButtonOnOf>
-        <TextPaymentMethod active={yearMod}>Yearly</TextPaymentMethod>
-      </SelectPaymentMethodContainer>
+        <SelectPaymentMethodContainer>
+          <TextPaymentMethod active={!yearMod}>Monthly</TextPaymentMethod>
+          <ButtonOnOf onClick={setMod} state={yearMod}></ButtonOnOf>
+          <TextPaymentMethod active={yearMod}>Yearly</TextPaymentMethod>
+        </SelectPaymentMethodContainer>
+      </div>
 
-      <Button
-        marginTop={margin}
-        floatPosition="left"
-        color="grey"
-        onClick={() => navigate(-1)}
-      >
-        Back
-      </Button>
-      <Button
-        marginTop={margin}
-        floatPosition="right"
-        backgroundColor={themes.colors.button}
-        houverColor={themes.colors.buttonHover1}
-        color="#fff"
-        onClick={() => navigate("/add-ons")}
-      >
-        Next Step
-      </Button>
+      <div>
+        <Button floatPosition="left" color="grey" onClick={() => navigate(-1)}>
+          Back
+        </Button>
+        <Button
+          floatPosition="right"
+          backgroundColor={themes.colors.button}
+          houverColor={themes.colors.buttonHover1}
+          color="#fff"
+          onClick={() => navigate("/add-ons")}
+        >
+          Next Step
+        </Button>
+      </div>
     </Form>
   );
 }
