@@ -19,7 +19,7 @@ export default function AddOnsForm() {
 
   const navigate = useNavigate();
 
-  useEffect(() => setStep(3));
+  useEffect(() => setStep(3), []);
 
   return (
     <Form>

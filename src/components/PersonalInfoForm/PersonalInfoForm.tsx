@@ -39,7 +39,7 @@ export default function PersonalInfoForm() {
 
   useEffect(() => {
     setStep(1);
-  });
+  }, []);
 
   return (
     <Form>

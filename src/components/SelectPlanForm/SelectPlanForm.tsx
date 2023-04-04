@@ -28,8 +28,7 @@ export default function SelectPlanForm() {
   useEffect(() => {
     if (yearMod && planState.paymentMethod !== "yr") setMod();
     setStep(2);
-  });
-  useEffect(() => {});
+  }, []);
 
   return (
     <Form>

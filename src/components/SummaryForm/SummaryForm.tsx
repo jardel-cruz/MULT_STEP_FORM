@@ -58,7 +58,7 @@ export default function SummaryForm() {
     return result;
   };
 
-  useEffect(() => setStep(4));
+  useEffect(() => setStep(4), []);
 
   return (
     <Form>
